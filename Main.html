@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Gang</title>
+  <link rel="stylesheet" href="css web.css">
+  <link rel="icon" type="image/png" href="Pic/Logo.png">
+</head>
+<body>
+  <nav class="navbar">
+    <img src="Pic/Logo.png" class="logo-bar" alt="โลโก้ในแถบ">
+    <ul>
+      <li><a href="#">หน้าแรก</a></li>
+      <li><a href="#">เกี่ยวกับ</a></li>
+      <li><a href="#">ติดต่อ</a></li>
+    </ul>
+  </nav>
+      <div class="logo-top-center">
+    <img src="Pic/Logo.png" alt="โลโก้กลาง">
+  </div>
+  <h2></h2>
+
+  <form id="form">
+    <label>ชื่อ-นามสกุล:</label>
+    <input type="text" name="name" required>
+
+    <label>เบอร์โทร:</label>
+    <input type="text" name="tel" required>
+
+    <label>ข้อความ:</label>
+    <textarea name="message" rows="1"></textarea>
+
+    <button type="submit">ส่งข้อมูล</button>
+    <button type="button" onclick="clearForm()">ล้างข้อมูล</button>
+  </form>
+
+  <p id="status"></p>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxxhxk3wawlFC6t2rAeAZDsF_ZM6LbA4KnJKzyIn0bk2ouG33YgDT3hS1bR28URg9Tj/exec';
+    const form = document.getElementById('form');
+    const status = document.getElementById('status');
+
+    function clearForm() {
+    document.getElementById("myForm").reset();
+    }
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const data = new FormData(form);
+      fetch(scriptURL, { method: 'POST', body: data })
+        .then(response => {
+          status.textContent = "✅ ส่งข้อมูลเรียบร้อย!";
+          form.reset();
+        })
+        .catch(error => {
+          status.textContent = "❌ มีข้อผิดพลาดในการส่งข้อมูล";
+          console.error('Error!', error.message);
+        });
+    });
+
+
+  </script>
+
+</body>
+</html>
